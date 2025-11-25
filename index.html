@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fourteen Snacks & Coffee - Caisse</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #8b4513;
+        --primary-light: #a0522d;
+        --primary-dark: #654321;
+        --secondary: #d4af37;
+        --secondary-light: #e6c35c;
+        --accent: #c19a6b;
+        --text: #3e2723;
+        --text-light: #5d4037;
+        --bg: #f5f5f5;
+        --card-bg: #ffffff;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --radius: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M50,10 C60,10 70,15 75,25 C85,35 90,45 90,55 C90,65 85,75 75,85 C65,95 55,100 50,100 C45,100 35,95 25,85 C15,75 10,65 10,55 C10,45 15,35 25,25 C30,15 40,10 50,10 Z M50,25 C45,25 40,30 40,35 C40,40 45,45 50,45 C55,45 60,40 60,35 C60,30 55,25 50,25 Z"/></svg>');
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+        position: relative;
+      }
+
+      header h2 {
+        font-size: 1.2rem;
+        font-weight: 400;
+        opacity: 0.9;
+        position: relative;
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 20px;
+        height: calc(100vh - 150px);
+      }
+
+      @media (max-width: 1200px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .menu-section {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 15px;
+        box-shadow: var(--shadow);
+        overflow-y: auto;
+      }
+
+      .order-section {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 15px;
+        box-shadow: var(--shadow);
+        border: 2px solid var(--accent);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-title::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary), transparent);
+        margin-left: 10px;
+      }
+
+      .category {
+        margin-bottom: 20px;
+      }
+
+      .category h2 {
+        font-size: 1rem;
+        color: var(--primary);
+        border-left: 4px solid var(--primary);
+        padding-left: 10px;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .items-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+
+      @media (max-width: 1400px) {
+        .items-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 1200px) {
+        .items-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .items-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid #f0f0f0;
+        cursor: pointer;
+        min-height: 70px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .card h3 {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+        color: var(--text);
+        font-weight: 500;
+        text-align: center;
+        width: 100%;
+        line-height: 1.2;
+      }
+
+      .card-price {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.8rem;
+        text-align: center;
+      }
+
+      .qty-badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        background: var(--secondary);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      #orderList {
+        list-style: none;
+        margin-bottom: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      #orderList li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+        border: 1px solid #e9ecef;
+      }
+
+      .order-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .order-item-name {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .order-item-price {
+        color: var(--text-light);
+        font-size: 0.75rem;
+      }
+
+      .order-item-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .order-item-controls button {
+        background: var(--secondary);
+        color: white;
+        border: none;
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+      }
+
+      .order-item-controls button:hover {
+        background: var(--secondary-light);
+        transform: scale(1.1);
+      }
+
+      .order-item-controls .remove-btn {
+        background: #d9534f;
+      }
+
+      .order-item-controls .remove-btn:hover {
+        background: #c9302c;
+      }
+
+      .order-summary {
+        border-top: 1px solid #e9ecef;
+        padding-top: 15px;
+        margin-top: auto;
+      }
+
+      .category-totals {
+        margin-bottom: 15px;
+        max-height: 120px;
+        overflow-y: auto;
+      }
+
+      .category-total {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+        padding: 4px 0;
+        border-bottom: 1px dashed #e9ecef;
+      }
+
+      .category-total-name {
+        color: var(--text-light);
+      }
+
+      .category-total-value {
+        font-weight: 500;
+        color: var(--primary);
+      }
+
+      .order-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        padding-top: 8px;
+        border-top: 2px solid var(--primary);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        flex: 1;
+        min-width: 120px;
+      }
+
+      .btn-primary {
+        background: var(--secondary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--secondary-light);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+      }
+
+      .btn-secondary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
+      }
+
+      .btn-danger {
+        background: #d9534f;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background: #c9302c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(217, 83, 79, 0.3);
+      }
+
+      .btn-info {
+        background: #5bc0de;
+        color: white;
+      }
+
+      .btn-info:hover {
+        background: #46b8da;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(91, 192, 222, 0.3);
+      }
+
+      .btn-toggle {
+        background: var(--accent);
+        color: white;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .btn-toggle:hover {
+        background: #b3895e;
+      }
+
+      #message {
+        text-align: center;
+        font-weight: 500;
+        margin-top: 12px;
+        padding: 8px;
+        border-radius: 8px;
+        display: none;
+      }
+
+      .message-success {
+        background: #e8f5e9;
+        color: #2e7d32;
+        display: block !important;
+      }
+
+      .message-error {
+        background: #ffebee;
+        color: #c62828;
+        display: block !important;
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 20px 0;
+        color: var(--text-light);
+      }
+
+      .empty-cart i {
+        font-size: 2.5rem;
+        opacity: 0.3;
+        margin-bottom: 8px;
+      }
+
+      #toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+      }
+
+      .toast {
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .toast.success {
+        background: rgba(139, 69, 19, 0.9);
+      }
+
+      .toast.error {
+        background: rgba(217, 83, 79, 0.9);
+      }
+
+      .category-filter {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+
+      .category-btn {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s;
+      }
+
+      .category-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .category-btn:hover {
+        border-color: var(--primary);
+      }
+
+      .calculator {
+        display: none;
+        margin-top: 12px;
+        background: #f8f9fa;
+        border-radius: var(--radius);
+        padding: 12px;
+        border: 1px solid #e9ecef;
+      }
+
+      .calculator.active {
+        display: block;
+      }
+
+      .calculator-display {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 1.1rem;
+        text-align: right;
+        margin-bottom: 8px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-family: monospace;
+      }
+
+      .calculator-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+
+      .calc-btn {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .calc-btn:hover {
+        background: #f0f0f0;
+      }
+
+      .calc-btn.operator {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .calc-btn.operator:hover {
+        background: var(--primary-dark);
+      }
+
+      .calc-btn.equals {
+        background: var(--secondary);
+        color: white;
+        border-color: var(--secondary);
+      }
+
+      .calc-btn.equals:hover {
+        background: var(--secondary-light);
+      }
+
+      /* Updated Print Receipt Styles to Match First Code */
+      .print-receipt {
+        display: none;
+      }
+
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        .print-receipt,
+        .print-receipt * {
+          visibility: visible;
+        }
+        .print-receipt {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          display: block;
+          padding: 20px;
+          font-size: 14px;
+          font-family: "Poppins", sans-serif;
+          background: white;
+          color: var(--text);
+        }
+        .no-print {
+          display: none;
+        }
+
+        /* Ticket header matching first code style */
+        .receipt-header {
+          text-align: center;
+          margin-bottom: 10px;
+          padding-bottom: 10px;
+          border-bottom: 1px dashed var(--accent);
+        }
+
+        .receipt-header h2 {
+          margin: 0;
+          font-size: 1.2rem;
+          color: var(--primary);
+        }
+
+        .receipt-header p {
+          margin: 4px 0;
+          font-size: 0.9rem;
+          color: var(--text-light);
+        }
+
+        /* Items list matching first code style */
+        .receipt-items {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .receipt-items li {
+          display: flex;
+          justify-content: space-between;
+          padding: 8px 10px;
+          margin-bottom: 6px;
+          font-size: 0.85rem;
+          border-bottom: 1px solid #e9ecef;
+        }
+
+        /* Total matching first code style */
+        .receipt-total {
+          font-weight: bold;
+          font-size: 1rem;
+          text-align: right;
+          margin-top: 10px;
+          color: var(--text);
+          padding-top: 8px;
+          border-top: 1px solid #e9ecef;
+        }
+
+        /* Footer matching first code style */
+        .receipt-footer {
+          text-align: center;
+          margin-top: 12px;
+          padding-top: 8px;
+          border-top: 1px dashed var(--accent);
+          font-size: 0.8rem;
+          color: var(--text-light);
+        }
+
+        /* Cloture report styling */
+        .cloture-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 15px 0;
+        }
+
+        .cloture-table th {
+          text-align: left;
+          padding: 5px;
+          border-bottom: 1px solid #000;
+        }
+
+        .cloture-table td {
+          padding: 5px;
+        }
+
+        .cloture-table .total-row {
+          border-top: 2px solid var(--primary);
+          font-weight: bold;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+
+        .items-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .calculator-buttons {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .btn {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1><i class="fas fa-coffee"></i> Fourteen Snacks & Coffee - Caisse</h1>
+        <h2>Caisse</h2>
+      </div>
+    </header>
+    <div class="container">
+      <div class="main-content">
+        <div class="menu-section">
+          <div class="category-filter">
+            <button class="category-btn active" data-category="all">
+              Tous
+            </button>
+            <button class="category-btn" data-category="personnels">
+              Personnels
+            </button>
+            <button class="category-btn" data-category="boissons-chaudes">
+              Hot Drinks
+            </button>
+            <button class="category-btn" data-category="boissons-froides">
+              Cold Drinks
+            </button>
+            <button class="category-btn" data-category="Crepes-Gauffres">
+              Crepes / Gauffres
+            </button>
+            <button class="category-btn" data-category="Sandwiches">
+              Sandwiches
+            </button>
+            <button class="category-btn" data-category="Omelettes">
+              Omelettes
+            </button>
+            <button class="category-btn" data-category="Jus">Jus</button>
+            <button class="category-btn" data-category="Petit Déj">
+              Petit Déj
+            </button>
+            <button class="category-btn" data-category="Milkshake">
+              Milkshake
+            </button>
+            <button class="category-btn" data-category="Smoothie">
+              Smoothie
+            </button>
+          </div>
+
+          <h2 class="section-title">
+            <i class="fas fa-utensils"></i> Notre Menu
+          </h2>
+          <div id="menu"></div>
+        </div>
+
+        <div class="order-section">
+          <h2 class="section-title">
+            <i class="fas fa-shopping-cart"></i> Votre Commande
+          </h2>
+          <ul id="orderList"></ul>
+          <div class="order-summary">
+            <div class="category-totals" id="categoryTotals"></div>
+            <div class="order-total">
+              <span>Total :</span>
+              <span id="totalPrice">0.00 TND</span>
+            </div>
+            <button class="btn btn-toggle" id="toggleCalculator">
+              <i class="fas fa-calculator"></i>
+              <span>Calculatrice</span>
+            </button>
+            <div class="calculator" id="calculator">
+              <div class="calculator-display" id="calcDisplay">0</div>
+              <div class="calculator-buttons">
+                <button class="calc-btn" data-value="7">7</button>
+                <button class="calc-btn" data-value="8">8</button>
+                <button class="calc-btn" data-value="9">9</button>
+                <button class="calc-btn operator" data-value="/">/</button>
+                <button class="calc-btn" data-value="4">4</button>
+                <button class="calc-btn" data-value="5">5</button>
+                <button class="calc-btn" data-value="6">6</button>
+                <button class="calc-btn operator" data-value="*">×</button>
+                <button class="calc-btn" data-value="1">1</button>
+                <button class="calc-btn" data-value="2">2</button>
+                <button class="calc-btn" data-value="3">3</button>
+                <button class="calc-btn operator" data-value="-">-</button>
+                <button class="calc-btn" data-value="0">0</button>
+                <button class="calc-btn" data-value=".">.</button>
+                <button class="calc-btn equals" data-value="=">=</button>
+                <button class="calc-btn operator" data-value="+">+</button>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="print-btn">
+                <i class="fas fa-print"></i>
+                <span>Imprimer & Tiroir</span>
+              </button>
+              <button class="btn btn-secondary" id="drawer-btn">
+                <i class="fas fa-cash-register"></i>
+                <span>Ouvrir Tiroir</span>
+              </button>
+              <button class="btn btn-danger" id="clear-cart-btn">
+                <i class="fas fa-trash"></i>
+                <span>Vider Panier</span>
+              </button>
+              <button class="btn btn-info" id="cloture-btn">
+                <i class="fas fa-file-invoice"></i>
+                <span>Clôture</span>
+              </button>
+            </div>
+          </div>
+          <p id="message"></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Updated Print Receipt to Match First Code Design -->
+    <div class="print-receipt" id="print-receipt">
+      <div class="receipt-header">
+        <h2>☕ Fourteen Snacks & Coffee ☕</h2>
+        <p>Merci pour votre commande ❤️</p>
+        <hr style="border: 1px dashed var(--accent); margin: 8px 0" />
+      </div>
+
+      <ul class="receipt-items" id="receipt-items">
+        <!-- Items will be added here dynamically -->
+      </ul>
+
+      <div class="receipt-total" id="receipt-total">Total : 0.00 TND</div>
+
+      <div class="receipt-footer">
+        <hr style="border: 1px dashed var(--accent); margin: 8px 0" />
+        <p id="receipt-date"></p>
+        <p>À bientôt chez Fourteen Snacks & Coffee!</p>
+      </div>
+    </div>
+
+    <!-- Updated Cloture Receipt to Match First Code Design -->
+    <div class="print-receipt" id="cloture-receipt">
+      <div class="receipt-header">
+        <h2>📊 Fourteen Snacks & Coffee - Clôture</h2>
+        <p>Période: <span id="cloture-date"></span></p>
+        <hr style="border: 1px dashed var(--accent); margin: 8px 0" />
+      </div>
+
+      <h3>Ventes par Catégorie</h3>
+      <table class="cloture-table">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th style="text-align: right">Total</th>
+          </tr>
+        </thead>
+        <tbody id="cloture-items"></tbody>
+      </table>
+
+      <div class="receipt-total">
+        Total Général: <span id="cloture-total"></span>
+      </div>
+
+      <h3 style="margin-top: 20px">Détail des Ventes</h3>
+      <table class="cloture-table">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th style="text-align: center">Qté</th>
+            <th style="text-align: right">Total</th>
+          </tr>
+        </thead>
+        <tbody id="cloture-detail-items"></tbody>
+      </table>
+
+      <div class="receipt-footer">
+        <hr style="border: 1px dashed var(--accent); margin: 8px 0" />
+        <p>Clôture de la période terminée</p>
+      </div>
+    </div>
+
+    <script>
+      // Menu data
+      const menuData = {
+        personnels: [
+          { name: "Express", price: 3 },
+          { name: "Cappuccin", price: 3.5 },
+          { name: "Direct", price: 4 },
+          { name: "Eau Minérale 0.5 L", price: 2 },
+        ],
+        "boissons-chaudes": [
+          { name: "Express", price: 3 },
+          { name: "Cappucin", price: 3.5 },
+          { name: "Direcct", price: 4 },
+          { name: "Americain", price: 4 },
+          { name: "Thé Infusion", price: 4 },
+          { name: "Nescfé", price: 4.5 },
+          { name: "Chocolat au lait", price: 4.5 },
+          { name: "Chocolat Chaud", price: 5 },
+          { name: "Cappucino", price: 4.5 },
+          { name: "Cappucino Caramel", price: 5.5 },
+          { name: "Cappucino Noisette", price: 5.5 },
+          { name: "Macchiato", price: 5 },
+        ],
+        "boissons-froides": [
+          { name: "Soda", price: 3.5 },
+          { name: "Eau Minérale 1 L", price: 3 },
+          { name: "Eau Minérale 0.5 L", price: 3.5 },
+        ],
+        "Crepes-Gauffres": [
+          { name: "Choolat", price: 6.5 },
+          { name: "Chocolat Banane", price: 8 },
+          { name: "Chocolat Fraise", price: 8 },
+          { name: "Chocolat MMS", price: 8 },
+          { name: "Chocolat Chocollat Blanc", price: 8 },
+          { name: "Nutella", price: 9 },
+          { name: "Nutella Fraise", price: 9.5 },
+          { name: "Nutella Banane", price: 9.5 },
+          { name: "Nutella Amande", price: 9.5 },
+          { name: "Nutella MMS", price: 9.5 },
+          { name: "Fromage", price: 7.5 },
+          { name: "Thon Fromage", price: 8 },
+          { name: "Jambon Fromage", price: 8 },
+          { name: "Double Fromage", price: 8 },
+          { name: "Fourteen", price: 8 },
+        ],
+        Sandwiches: [
+          { name: "Fankouch", price: 6 },
+          { name: "Anchiladas", price: 7 },
+          { name: "Taco Viane Hachée", price: 6 },
+          { name: "Taco Escalope", price: 7 },
+          { name: "Burritos", price: 6.5 },
+        ],
+        Omelettes: [
+          { name: "Fromage", price: 7.5 },
+          { name: "Thon Fromage", price: 8.5 },
+          { name: "jambon Fromage", price: 7.5 },
+          { name: "Fourteen", price: 9 },
+        ],
+        Jus: [
+          { name: "Jus d'Orange", price: 5.5 },
+          { name: "Citronnade", price: 5.5 },
+          { name: "Fraise", price: 5.5 },
+          { name: "Banane", price: 7 },
+          { name: "Fraise Banane", price: 8 },
+          { name: "Cocktail", price: 9 },
+        ],
+        "Petit Déj": [
+          { name: "Bunch West", price: 7 },
+          { name: "Double West", price: 8 },
+          { name: "West Side", price: 9 },
+          { name: "Fourteen West", price: 15 },
+        ],
+        Milkshake: [
+          { name: "Fraise", price: 8 },
+          { name: "Banane", price: 8 },
+          { name: "Fraise Banane", price: 9 },
+          { name: "Cookies", price: 9 },
+          { name: "Oreo", price: 9 },
+          { name: "Sneakers", price: 9 },
+          { name: "Crunch", price: 9 },
+          { name: "Mojito Virgin", price: 7 },
+          { name: "Mojito Red", price: 8 },
+          { name: "Mojito Green", price: 7 },
+        ],
+        Smoothie: [
+          { name: "Fraise Banane", price: 9 },
+          { name: "Framboise", price: 8 },
+          { name: "Citron Menthe", price: 8 },
+          { name: "Manga", price: 8 },
+          { name: "Fruits Rouges", price: 8 },
+          { name: "Frapuccino Caramel", price: 8 },
+          { name: "Frapuccino Chocolat", price: 8 },
+        ],
+      };
+
+      // Cart array
+      let cart = [];
+      let detailedSalesHistory =
+        JSON.parse(localStorage.getItem("detailedSalesHistory")) || [];
+
+      // DOM elements
+      const menuContainer = document.getElementById("menu");
+      const orderList = document.getElementById("orderList");
+      const totalPriceEl = document.getElementById("totalPrice");
+      const printBtn = document.getElementById("print-btn");
+      const drawerBtn = document.getElementById("drawer-btn");
+      const clearCartBtn = document.getElementById("clear-cart-btn");
+      const clotureBtn = document.getElementById("cloture-btn");
+      const message = document.getElementById("message");
+      const categoryBtns = document.querySelectorAll(".category-btn");
+      const toastContainer = document.getElementById("toast-container");
+      const receiptItems = document.getElementById("receipt-items");
+      const receiptTotal = document.getElementById("receipt-total");
+      const receiptDate = document.getElementById("receipt-date");
+      const categoryTotalsEl = document.getElementById("categoryTotals");
+      const toggleCalculatorBtn = document.getElementById("toggleCalculator");
+      const calculatorEl = document.getElementById("calculator");
+      const calcDisplay = document.getElementById("calcDisplay");
+      const calcButtons = document.querySelectorAll(".calc-btn");
+      const clotureItems = document.getElementById("cloture-items");
+      const clotureTotal = document.getElementById("cloture-total");
+      const clotureDate = document.getElementById("cloture-date");
+      const clotureDetailItems = document.getElementById(
+        "cloture-detail-items"
+      );
+
+      // Calculator state
+      let calcValue = "0";
+      let waitingForSecondOperand = false;
+      let operator = null;
+      let firstOperand = null;
+
+      // Initialize the app
+      function init() {
+        renderMenu();
+        setupEventListeners();
+        renderOrder();
+      }
+
+      // Render menu
+      function renderMenu() {
+        menuContainer.innerHTML = "";
+
+        Object.keys(menuData).forEach((category) => {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.classList.add("category");
+          categoryDiv.dataset.category = category;
+
+          const title = document.createElement("h2");
+          title.textContent =
+            category.charAt(0).toUpperCase() +
+            category.slice(1).replace(/-/g, " ");
+          categoryDiv.appendChild(title);
+
+          const itemsGrid = document.createElement("div");
+          itemsGrid.classList.add("items-grid");
+
+          menuData[category].forEach((item) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.dataset.name = item.name.toLowerCase();
+            card.addEventListener("click", () => {
+              addToCart(item);
+            });
+
+            const nameEl = document.createElement("h3");
+            nameEl.textContent = item.name;
+
+            const priceEl = document.createElement("p");
+            priceEl.classList.add("card-price");
+            priceEl.textContent = item.price.toFixed(2) + " TND";
+
+            card.appendChild(nameEl);
+            card.appendChild(priceEl);
+
+            itemsGrid.appendChild(card);
+          });
+
+          categoryDiv.appendChild(itemsGrid);
+          menuContainer.appendChild(categoryDiv);
+        });
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Category tabs
+        categoryBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const category = btn.dataset.category;
+
+            // Update active button
+            categoryBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Show/hide categories
+            const categories = document.querySelectorAll(".category");
+            categories.forEach((cat) => {
+              if (category === "all" || cat.dataset.category === category) {
+                cat.style.display = "block";
+              } else {
+                cat.style.display = "none";
+              }
+            });
+          });
+        });
+
+        // Print button
+        printBtn.addEventListener("click", handlePrint);
+
+        // Drawer button
+        drawerBtn.addEventListener("click", openDrawer);
+
+        // Clear cart button
+        clearCartBtn.addEventListener("click", clearCart);
+
+        // Cloture button
+        clotureBtn.addEventListener("click", generateCloture);
+
+        // Calculator toggle
+        toggleCalculatorBtn.addEventListener("click", () => {
+          calculatorEl.classList.toggle("active");
+          if (calculatorEl.classList.contains("active")) {
+            toggleCalculatorBtn.innerHTML =
+              '<i class="fas fa-times"></i><span>Fermer Calculatrice</span>';
+          } else {
+            toggleCalculatorBtn.innerHTML =
+              '<i class="fas fa-calculator"></i><span>Calculatrice</span>';
+          }
+        });
+
+        // Calculator buttons
+        calcButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const value = button.getAttribute("data-value");
+
+            if (value === "=") {
+              calculateResult();
+            } else if (["+", "-", "*", "/"].includes(value)) {
+              handleOperator(value);
+            } else {
+              inputDigit(value);
+            }
+          });
+        });
+      }
+
+      // Calculator functions
+      function inputDigit(digit) {
+        if (waitingForSecondOperand) {
+          calcValue = digit;
+          waitingForSecondOperand = false;
+        } else {
+          calcValue = calcValue === "0" ? digit : calcValue + digit;
+        }
+        calcDisplay.textContent = calcValue;
+      }
+
+      function handleOperator(nextOperator) {
+        const inputValue = parseFloat(calcValue);
+
+        if (firstOperand === null) {
+          firstOperand = inputValue;
+        } else if (operator) {
+          const result = performCalculation();
+          calcValue = String(result);
+          calcDisplay.textContent = calcValue;
+          firstOperand = result;
+        }
+
+        waitingForSecondOperand = true;
+        operator = nextOperator;
+      }
+
+      function performCalculation() {
+        const inputValue = parseFloat(calcValue);
+        if (operator === "+") {
+          return firstOperand + inputValue;
+        } else if (operator === "-") {
+          return firstOperand - inputValue;
+        } else if (operator === "*") {
+          return firstOperand * inputValue;
+        } else if (operator === "/") {
+          return firstOperand / inputValue;
+        }
+
+        return inputValue;
+      }
+
+      function calculateResult() {
+        if (operator && !waitingForSecondOperand) {
+          const result = performCalculation();
+          calcValue = String(result);
+          calcDisplay.textContent = calcValue;
+          firstOperand = null;
+          operator = null;
+          waitingForSecondOperand = false;
+        }
+      }
+
+      // Add item to cart
+      function addToCart(item) {
+        const existingItem = cart.find((cartItem) => cartItem.id === item.name);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id: item.name,
+            name: item.name,
+            price: item.price,
+            quantity: 1,
+            category: getCategoryForItem(item.name),
+          });
+        }
+
+        renderOrder();
+        showToast(`${item.name} ajouté au panier`, "success");
+      }
+
+      // Get category for an item
+      function getCategoryForItem(itemName) {
+        for (const category in menuData) {
+          if (menuData[category].some((item) => item.name === itemName)) {
+            return category;
+          }
+        }
+        return "other";
+      }
+
+      // Render order
+      function renderOrder() {
+        orderList.innerHTML = "";
+        let total = 0;
+        let itemCount = 0;
+
+        if (cart.length === 0) {
+          const emptyCart = document.createElement("div");
+          emptyCart.classList.add("empty-cart");
+          emptyCart.innerHTML = `
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Votre panier est vide</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Cliquez sur un article pour l'ajouter</p>
+                `;
+          orderList.appendChild(emptyCart);
+        } else {
+          cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            itemCount += item.quantity;
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+                        <div class="order-item-info">
+                            <div class="order-item-name">${item.name}</div>
+                            <div class="order-item-price">${item.price.toFixed(
+                              2
+                            )} TND</div>
+                        </div>
+                        <div class="order-item-controls">
+                            <button onclick="decreaseQuantity(${index})">−</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="increaseQuantity(${index})">+</button>
+                            <button class="remove-btn" onclick="removeItem(${index})">×</button>
+                        </div>
+                    `;
+            orderList.appendChild(li);
+          });
+        }
+
+        totalPriceEl.textContent = `${total.toFixed(2)} TND`;
+
+        // Update category totals
+        updateCategoryTotals();
+      }
+
+      // Update category totals
+      function updateCategoryTotals() {
+        categoryTotalsEl.innerHTML = "";
+
+        const categoryTotals = {};
+
+        // Calculate totals for each category
+        cart.forEach((item) => {
+          if (!categoryTotals[item.category]) {
+            categoryTotals[item.category] = 0;
+          }
+          categoryTotals[item.category] += item.price * item.quantity;
+        });
+
+        // Create elements for each category total
+        Object.keys(categoryTotals).forEach((category) => {
+          if (categoryTotals[category] > 0) {
+            const categoryTotalEl = document.createElement("div");
+            categoryTotalEl.classList.add("category-total");
+
+            const categoryName =
+              category.charAt(0).toUpperCase() +
+              category.slice(1).replace(/-/g, " ");
+
+            categoryTotalEl.innerHTML = `
+                        <span class="category-total-name">${categoryName}</span>
+                        <span class="category-total-value">${categoryTotals[
+                          category
+                        ].toFixed(2)} TND</span>
+                    `;
+
+            categoryTotalsEl.appendChild(categoryTotalEl);
+          }
+        });
+      }
+
+      // Remove item from cart
+      window.removeItem = function (index) {
+        const itemName = cart[index].name;
+        cart.splice(index, 1);
+        renderOrder();
+        showToast(`${itemName} retiré du panier`, "error");
+      };
+
+      // Increase quantity
+      window.increaseQuantity = function (index) {
+        cart[index].quantity++;
+        renderOrder();
+      };
+
+      // Decrease quantity
+      window.decreaseQuantity = function (index) {
+        if (cart[index].quantity > 1) {
+          cart[index].quantity--;
+        } else {
+          removeItem(index);
+          return;
+        }
+        renderOrder();
+      };
+
+      // Clear cart
+      function clearCart() {
+        if (cart.length === 0) {
+          showToast("Le panier est déjà vide!", "error");
+          return;
+        }
+
+        if (confirm("Êtes-vous sûr de vouloir vider le panier?")) {
+          cart = [];
+          renderOrder();
+          showToast("Panier vidé avec succès", "success");
+        }
+      }
+
+      // Handle print function
+      function handlePrint() {
+        if (cart.length === 0) {
+          showToast("Le panier est vide!", "error");
+          return;
+        }
+
+        // Add current cart to sales history before printing
+        addToSalesHistory();
+
+        // Try Epson printing first, fall back to regular printing
+        if (!printToEpson()) {
+          generateReceipt();
+          window.print();
+        }
+
+        openDrawer();
+
+        // Clear cart after successful print
+        cart = [];
+        renderOrder();
+      }
+
+      // Epson Printer Function
+      function printToEpson() {
+        try {
+          // Check if we're in a browser environment that supports ActiveX (for older Epson printers)
+          if (window.ActiveXObject) {
+            const epson = new ActiveXObject("EPSON.ePOSPrint");
+            const printerAddress = "192.168.192.168"; // Default Epson IP
+            const printerPort = 8008; // Default Epson port
+
+            epson.AddText("Fourteen Snacks & Coffee\n");
+            epson.AddText("====================\n");
+            epson.AddText("Date: " + new Date().toLocaleString("fr-FR") + "\n");
+            epson.AddText("-------------------\n");
+
+            cart.forEach((item) => {
+              epson.AddText(`${item.name} x${item.quantity}\n`);
+              epson.AddText(`${(item.price * item.quantity).toFixed(2)} TND\n`);
+            });
+
+            epson.AddText("-------------------\n");
+            const total = cart.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            );
+            epson.AddText(`TOTAL: ${total.toFixed(2)} TND\n`);
+            epson.AddText("====================\n");
+            epson.AddText("Merci pour votre visite!\n");
+
+            epson.Connect(printerAddress, printerPort, 2000, true);
+            epson.Send();
+            epson.Disconnect();
+
+            showToast("Reçu imprimé sur Epson!", "success");
+            return true;
+          }
+        } catch (e) {
+          console.log("Epson printing failed, using regular print:", e);
+        }
+
+        // Fallback: Try WebUSB API for newer Epson printers
+        try {
+          if (navigator.usb) {
+            // WebUSB implementation would go here
+            // This requires specific Epson WebUSB drivers
+          }
+        } catch (e) {
+          console.log("WebUSB not available:", e);
+        }
+
+        return false;
+      }
+
+      // Add to sales history
+      function addToSalesHistory() {
+        const now = new Date();
+
+        cart.forEach((item) => {
+          detailedSalesHistory.push({
+            id: item.name,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            category: item.category,
+            timestamp: now.getTime(),
+            date: now.toISOString(),
+          });
+        });
+
+        localStorage.setItem(
+          "detailedSalesHistory",
+          JSON.stringify(detailedSalesHistory)
+        );
+      }
+
+      // Generate cloture report for 2 AM to 2 AM period
+      function generateCloture() {
+        // Get current date and time
+        const now = new Date();
+        const currentHour = now.getHours();
+
+        // Determine the start and end dates for the 2 AM to 2 AM period
+        let startDate, endDate;
+
+        if (currentHour >= 2) {
+          // If current time is 2 AM or later, period is from today 2 AM to tomorrow 2 AM
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            2,
+            0,
+            0
+          );
+          endDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() + 1,
+            2,
+            0,
+            0
+          );
+        } else {
+          // If current time is before 2 AM, period is from yesterday 2 AM to today 2 AM
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - 1,
+            2,
+            0,
+            0
+          );
+          endDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            2,
+            0,
+            0
+          );
+        }
+
+        // Filter sales history for the 2 AM to 2 AM period
+        const periodSales = getSalesForPeriod(startDate, endDate);
+
+        if (
+          Object.keys(periodSales.categoryTotals).length === 0 &&
+          Object.keys(periodSales.itemTotals).length === 0
+        ) {
+          showToast(
+            "Aucune vente enregistrée pour cette période (2h - 2h)!",
+            "error"
+          );
+          return;
+        }
+
+        // Generate the cloture report
+        generateClotureReport(periodSales, startDate, endDate);
+      }
+
+      // Get sales for a specific time period
+      function getSalesForPeriod(startDate, endDate) {
+        const categoryTotals = {};
+        const itemTotals = {};
+
+        // Iterate through all detailed sales history
+        detailedSalesHistory.forEach((sale) => {
+          const saleDate = new Date(sale.timestamp);
+
+          // Check if this sale falls within our period
+          if (saleDate >= startDate && saleDate < endDate) {
+            // Add to category totals
+            if (!categoryTotals[sale.category]) {
+              categoryTotals[sale.category] = 0;
+            }
+            categoryTotals[sale.category] += sale.price * sale.quantity;
+
+            // Add to item totals
+            if (!itemTotals[sale.name]) {
+              itemTotals[sale.name] = {
+                quantity: 0,
+                total: 0,
+                category: sale.category,
+              };
+            }
+            itemTotals[sale.name].quantity += sale.quantity;
+            itemTotals[sale.name].total += sale.price * sale.quantity;
+          }
+        });
+
+        return { categoryTotals, itemTotals };
+      }
+
+      // Generate the actual cloture report
+      function generateClotureReport(periodSales, startDate, endDate) {
+        clotureItems.innerHTML = "";
+        clotureDetailItems.innerHTML = "";
+        let grandTotal = 0;
+
+        // Generate category totals from period sales
+        Object.keys(periodSales.categoryTotals).forEach((category) => {
+          const categoryTotal = periodSales.categoryTotals[category];
+          grandTotal += categoryTotal;
+
+          const categoryRow = document.createElement("tr");
+          const categoryName =
+            category.charAt(0).toUpperCase() +
+            category.slice(1).replace(/-/g, " ");
+
+          categoryRow.innerHTML = `
+                    <td>${categoryName}</td>
+                    <td style="text-align: right;">${categoryTotal.toFixed(
+                      2
+                    )} TND</td>
+                `;
+          clotureItems.appendChild(categoryRow);
+        });
+
+        // Generate item details
+        Object.keys(periodSales.itemTotals).forEach((itemName) => {
+          const itemData = periodSales.itemTotals[itemName];
+
+          const itemRow = document.createElement("tr");
+          itemRow.innerHTML = `
+                    <td>${itemName}</td>
+                    <td style="text-align: center;">${itemData.quantity}</td>
+                    <td style="text-align: right;">${itemData.total.toFixed(
+                      2
+                    )} TND</td>
+                `;
+          clotureDetailItems.appendChild(itemRow);
+        });
+
+        clotureTotal.textContent = `${grandTotal.toFixed(2)} TND`;
+
+        // Format dates for display
+        const formatDate = (date) => {
+          return (
+            date.toLocaleDateString("fr-FR") +
+            " " +
+            date.toLocaleTimeString("fr-FR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          );
+        };
+
+        clotureDate.textContent = `${formatDate(startDate)} - ${formatDate(
+          endDate
+        )}`;
+
+        // Hide regular receipt and show cloture receipt
+        document.getElementById("print-receipt").style.display = "none";
+        document.getElementById("cloture-receipt").style.display = "block";
+
+        window.print();
+
+        // Reset display after printing
+        setTimeout(() => {
+          document.getElementById("print-receipt").style.display = "none";
+          document.getElementById("cloture-receipt").style.display = "none";
+        }, 100);
+      }
+
+      // Show toast message
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.classList.add("toast", type);
+        toast.innerHTML = `
+                <span>${type === "success" ? "✅" : "❌"}</span>
+                <span>${message}</span>
+            `;
+
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add("show");
+        }, 10);
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => {
+            toastContainer.removeChild(toast);
+          }, 300);
+        }, 3000);
+      }
+
+      // Generate receipt for printing (Updated to match first code design)
+      function generateReceipt() {
+        receiptItems.innerHTML = "";
+
+        let total = 0;
+
+        cart.forEach((item) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+
+          const receiptItem = document.createElement("li");
+          receiptItem.innerHTML = `
+                    <span>${item.name} (${item.price.toFixed(2)} TND)</span>
+                    <span>x${item.quantity} — ${itemTotal.toFixed(2)} TND</span>
+                `;
+          receiptItems.appendChild(receiptItem);
+        });
+
+        receiptTotal.textContent = `Total : ${total.toFixed(2)} TND`;
+
+        // Set current date
+        const now = new Date();
+        receiptDate.textContent = `${now.toLocaleTimeString()} — ${now.toLocaleDateString()}`;
+
+        // Show receipt for printing
+        document.getElementById("print-receipt").style.display = "block";
+        document.getElementById("cloture-receipt").style.display = "none";
+      }
+
+      // Open drawer (simulated)
+      function openDrawer() {
+        showToast("Tiroir ouvert!", "success");
+        // In a real implementation, this would connect to a cash drawer hardware
+      }
+
+      // Initialize the app when DOM is loaded
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
