@@ -88,6 +88,29 @@
         position: relative;
       }
 
+      .admin-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: var(--secondary);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .admin-btn:hover {
+        background: var(--secondary-light);
+        transform: translateY(-2px);
+      }
+
       .main-content {
         display: grid;
         grid-template-columns: 1fr 400px;
@@ -593,6 +616,144 @@
         background: var(--secondary-light);
       }
 
+      /* Admin Panel Styles */
+      .admin-panel {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .admin-panel.active {
+        display: flex;
+      }
+
+      .admin-content {
+        background: white;
+        border-radius: var(--radius);
+        padding: 30px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow);
+      }
+
+      .password-prompt {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .password-input {
+        width: 300px;
+        padding: 12px;
+        margin: 20px 0;
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .admin-controls {
+        display: none;
+      }
+
+      .admin-controls.active {
+        display: block;
+      }
+
+      .admin-section {
+        margin-bottom: 25px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: var(--radius);
+        border-left: 4px solid var(--primary);
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .price-list {
+        margin-top: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .price-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #e9ecef;
+        gap: 10px;
+      }
+
+      .price-item:last-child {
+        border-bottom: none;
+      }
+
+      .price-item-name {
+        flex: 1;
+        font-weight: 500;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .locked-message {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        z-index: 10001;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 2rem;
+        flex-direction: column;
+      }
+
+      .locked-message.active {
+        display: flex;
+      }
+
       /* Updated Print Receipt Styles to Match First Code */
       .print-receipt {
         display: none;
@@ -722,6 +883,19 @@
         .btn {
           min-width: 100%;
         }
+
+        .admin-btn {
+          position: relative;
+          top: auto;
+          right: auto;
+          margin: 10px auto;
+          display: block;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 10px;
+        }
       }
     </style>
   </head>
@@ -730,19 +904,19 @@
       <div class="container">
         <h1><i class="fas fa-coffee"></i> Fourteen Snacks & Coffee - Caisse</h1>
         <h2>Caisse</h2>
+        <button class="admin-btn" id="adminBtn">
+          <i class="fas fa-cog"></i> Admin
+        </button>
       </div>
     </header>
     <div class="container">
       <div class="main-content">
         <div class="menu-section">
           <div class="category-filter">
-            <button class="category-btn active" data-category="all">
-              Tous
-            </button>
-            <button class="category-btn" data-category="personnels">
-              Personnels
-            </button>
-            <button class="category-btn" data-category="boissons-chaudes">
+            <button
+              class="category-btn active"
+              data-category="boissons-chaudes"
+            >
               Hot Drinks
             </button>
             <button class="category-btn" data-category="boissons-froides">
@@ -766,6 +940,9 @@
             </button>
             <button class="category-btn" data-category="Smoothie">
               Smoothie
+            </button>
+            <button class="category-btn" data-category="personnels">
+              Personnels
             </button>
           </div>
 
@@ -833,6 +1010,116 @@
           <p id="message"></p>
         </div>
       </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+      <div class="admin-content">
+        <div class="password-prompt" id="passwordPrompt">
+          <h2>Accès Administrateur</h2>
+          <p>Veuillez entrer le mot de passe pour continuer</p>
+          <input
+            type="password"
+            class="password-input"
+            id="adminPassword"
+            placeholder="Mot de passe"
+          />
+          <button class="btn btn-primary" id="submitPassword">Valider</button>
+          <button class="btn btn-secondary" id="cancelAdmin">Annuler</button>
+        </div>
+
+        <div class="admin-controls" id="adminControls">
+          <h2 class="section-title">
+            <i class="fas fa-cogs"></i> Panneau d'Administration
+          </h2>
+
+          <div class="admin-section">
+            <h3>Clôture de Caisse</h3>
+            <button class="btn btn-info" id="adminClotureBtn">
+              <i class="fas fa-file-invoice"></i>
+              <span>Générer Clôture</span>
+            </button>
+            <p
+              style="
+                margin-top: 10px;
+                font-size: 0.9rem;
+                color: var(--text-light);
+              "
+            >
+              Après clôture, le système sera verrouillé jusqu'à 2h du matin
+            </p>
+          </div>
+
+          <div class="admin-section">
+            <h3>Gestion des Articles</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="newItemName">Nom de l'article</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newItemName"
+                  placeholder="Nom de l'article"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newItemPrice">Prix (TND)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newItemPrice"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newItemCategory">Catégorie</label>
+                <select class="form-control" id="newItemCategory">
+                  <option value="boissons-chaudes">Boissons Chaudes</option>
+                  <option value="boissons-froides">Boissons Froides</option>
+                  <option value="Crepes-Gauffres">Crepes / Gauffres</option>
+                  <option value="Sandwiches">Sandwiches</option>
+                  <option value="Omelettes">Omelettes</option>
+                  <option value="Jus">Jus</option>
+                  <option value="Petit Déj">Petit Déjeuner</option>
+                  <option value="Milkshake">Milkshake</option>
+                  <option value="Smoothie">Smoothie</option>
+                  <option value="personnels">Personnels</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="addItemBtn">
+              <i class="fas fa-plus"></i>
+              <span>Ajouter Article</span>
+            </button>
+          </div>
+
+          <div class="admin-section">
+            <h3>Modification des Prix</h3>
+            <div class="price-list" id="priceList">
+              <!-- Price items will be dynamically added here -->
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-secondary" id="closeAdmin">
+              <i class="fas fa-times"></i>
+              <span>Fermer Admin</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Locked Message -->
+    <div class="locked-message" id="lockedMessage">
+      <i class="fas fa-lock" style="font-size: 4rem; margin-bottom: 20px"></i>
+      <h2>Système Verrouillé</h2>
+      <p>La caisse est fermée jusqu'à 2h du matin</p>
+      <p style="font-size: 1rem; margin-top: 20px">
+        Clôture effectuée - Réouverture à 2h
+      </p>
     </div>
 
     <div id="toast-container"></div>
@@ -998,6 +1285,7 @@
       let cart = [];
       let detailedSalesHistory =
         JSON.parse(localStorage.getItem("detailedSalesHistory")) || [];
+      let systemLocked = localStorage.getItem("systemLocked") === "true";
 
       // DOM elements
       const menuContainer = document.getElementById("menu");
@@ -1025,6 +1313,23 @@
         "cloture-detail-items"
       );
 
+      // Admin elements
+      const adminBtn = document.getElementById("adminBtn");
+      const adminPanel = document.getElementById("adminPanel");
+      const passwordPrompt = document.getElementById("passwordPrompt");
+      const adminControls = document.getElementById("adminControls");
+      const adminPassword = document.getElementById("adminPassword");
+      const submitPassword = document.getElementById("submitPassword");
+      const cancelAdmin = document.getElementById("cancelAdmin");
+      const closeAdmin = document.getElementById("closeAdmin");
+      const adminClotureBtn = document.getElementById("adminClotureBtn");
+      const addItemBtn = document.getElementById("addItemBtn");
+      const newItemName = document.getElementById("newItemName");
+      const newItemPrice = document.getElementById("newItemPrice");
+      const newItemCategory = document.getElementById("newItemCategory");
+      const priceList = document.getElementById("priceList");
+      const lockedMessage = document.getElementById("lockedMessage");
+
       // Calculator state
       let calcValue = "0";
       let waitingForSecondOperand = false;
@@ -1036,6 +1341,191 @@
         renderMenu();
         setupEventListeners();
         renderOrder();
+        updatePriceList();
+        checkSystemLock();
+
+        // Check if system is locked
+        if (systemLocked) {
+          showLockedMessage();
+        }
+      }
+
+      // Check if system should be locked
+      function checkSystemLock() {
+        const lockTime = localStorage.getItem("lockTime");
+        if (lockTime) {
+          const now = new Date();
+          const lockDate = new Date(parseInt(lockTime));
+          const unlockTime = new Date(lockDate);
+          unlockTime.setDate(unlockTime.getDate() + 1);
+          unlockTime.setHours(2, 0, 0, 0);
+
+          if (now < unlockTime) {
+            systemLocked = true;
+            localStorage.setItem("systemLocked", "true");
+            showLockedMessage();
+          } else {
+            systemLocked = false;
+            localStorage.setItem("systemLocked", "false");
+            localStorage.removeItem("lockTime");
+          }
+        }
+      }
+
+      // Show locked message
+      function showLockedMessage() {
+        lockedMessage.classList.add("active");
+        document.querySelector(".main-content").style.display = "none";
+        document.querySelector("header").style.display = "none";
+      }
+
+      // Setup admin event listeners
+      function setupAdminEvents() {
+        adminBtn.addEventListener("click", () => {
+          adminPanel.classList.add("active");
+          passwordPrompt.style.display = "block";
+          adminControls.style.display = "none";
+          adminPassword.value = "";
+        });
+
+        submitPassword.addEventListener("click", () => {
+          if (adminPassword.value === "fourteencaisse") {
+            passwordPrompt.style.display = "none";
+            adminControls.style.display = "block";
+            updatePriceList();
+          } else {
+            showToast("Mot de passe incorrect!", "error");
+          }
+        });
+
+        cancelAdmin.addEventListener("click", () => {
+          adminPanel.classList.remove("active");
+        });
+
+        closeAdmin.addEventListener("click", () => {
+          adminPanel.classList.remove("active");
+        });
+
+        adminClotureBtn.addEventListener("click", () => {
+          if (
+            confirm(
+              "Êtes-vous sûr de vouloir effectuer la clôture? Le système sera verrouillé jusqu'à 2h."
+            )
+          ) {
+            generateCloture();
+            // Lock the system until 2 AM
+            const now = new Date();
+            localStorage.setItem("lockTime", now.getTime().toString());
+            localStorage.setItem("systemLocked", "true");
+            systemLocked = true;
+            adminPanel.classList.remove("active");
+            showLockedMessage();
+          }
+        });
+
+        addItemBtn.addEventListener("click", () => {
+          const name = newItemName.value.trim();
+          const price = parseFloat(newItemPrice.value);
+          const category = newItemCategory.value;
+
+          if (!name || isNaN(price) || price <= 0) {
+            showToast("Veuillez remplir tous les champs correctement", "error");
+            return;
+          }
+
+          if (!menuData[category]) {
+            menuData[category] = [];
+          }
+
+          // Check if item already exists
+          const existingItem = menuData[category].find(
+            (item) => item.name.toLowerCase() === name.toLowerCase()
+          );
+          if (existingItem) {
+            showToast("Cet article existe déjà dans cette catégorie", "error");
+            return;
+          }
+
+          menuData[category].push({ name, price });
+          saveMenuData();
+          renderMenu();
+          updatePriceList();
+
+          newItemName.value = "";
+          newItemPrice.value = "";
+          showToast("Article ajouté avec succès!", "success");
+        });
+
+        // Enter key for password
+        adminPassword.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            submitPassword.click();
+          }
+        });
+      }
+
+      // Update price list in admin panel
+      function updatePriceList() {
+        priceList.innerHTML = "";
+
+        Object.keys(menuData).forEach((category) => {
+          const categoryHeader = document.createElement("div");
+          categoryHeader.style.cssText =
+            "font-weight: bold; margin: 15px 0 5px 0; padding: 5px; background: #e9ecef; border-radius: 4px;";
+          categoryHeader.textContent =
+            category.charAt(0).toUpperCase() +
+            category.slice(1).replace(/-/g, " ");
+          priceList.appendChild(categoryHeader);
+
+          menuData[category].forEach((item, index) => {
+            const priceItem = document.createElement("div");
+            priceItem.className = "price-item";
+
+            priceItem.innerHTML = `
+                        <div class="price-item-name">${item.name}</div>
+                        <input type="number" class="form-control" style="width: 80px; margin: 0 10px;" value="${item.price.toFixed(
+                          2
+                        )}" step="0.01" min="0" 
+                               data-category="${category}" data-index="${index}">
+                        <button class="btn btn-primary" style="padding: 5px 8px; font-size: 0.8rem; min-width: 60px;" 
+                                onclick="updatePrice('${category}', ${index}, this.previousElementSibling.value)">
+                            <i class="fas fa-save"></i> Sauvegarder
+                        </button>
+                    `;
+
+            priceList.appendChild(priceItem);
+          });
+        });
+      }
+
+      // Update item price
+      window.updatePrice = function (category, index, newPrice) {
+        newPrice = parseFloat(newPrice);
+        if (isNaN(newPrice) || newPrice < 0) {
+          showToast("Prix invalide", "error");
+          return;
+        }
+
+        menuData[category][index].price = newPrice;
+        saveMenuData();
+        renderMenu();
+        showToast("Prix mis à jour avec succès!", "success");
+      };
+
+      // Save menu data to localStorage
+      function saveMenuData() {
+        localStorage.setItem("menuData", JSON.stringify(menuData));
+      }
+
+      // Load menu data from localStorage
+      function loadMenuData() {
+        const savedMenuData = localStorage.getItem("menuData");
+        if (savedMenuData) {
+          const parsedData = JSON.parse(savedMenuData);
+          Object.keys(parsedData).forEach((category) => {
+            menuData[category] = parsedData[category];
+          });
+        }
       }
 
       // Render menu
@@ -1061,7 +1551,11 @@
             card.classList.add("card");
             card.dataset.name = item.name.toLowerCase();
             card.addEventListener("click", () => {
-              addToCart(item);
+              if (!systemLocked) {
+                addToCart(item);
+              } else {
+                showToast("Système verrouillé - Clôture effectuée", "error");
+              }
             });
 
             const nameEl = document.createElement("h3");
@@ -1080,6 +1574,24 @@
           categoryDiv.appendChild(itemsGrid);
           menuContainer.appendChild(categoryDiv);
         });
+
+        // Set initial category display - show only boissons-chaudes by default
+        filterCategories("boissons-chaudes");
+      }
+
+      // Filter categories based on selection
+      function filterCategories(selectedCategory) {
+        const categories = document.querySelectorAll(".category");
+        categories.forEach((cat) => {
+          if (
+            selectedCategory === "all" ||
+            cat.dataset.category === selectedCategory
+          ) {
+            cat.style.display = "block";
+          } else {
+            cat.style.display = "none";
+          }
+        });
       }
 
       // Setup event listeners
@@ -1094,14 +1606,7 @@
             btn.classList.add("active");
 
             // Show/hide categories
-            const categories = document.querySelectorAll(".category");
-            categories.forEach((cat) => {
-              if (category === "all" || cat.dataset.category === category) {
-                cat.style.display = "block";
-              } else {
-                cat.style.display = "none";
-              }
-            });
+            filterCategories(category);
           });
         });
 
@@ -1143,6 +1648,9 @@
             }
           });
         });
+
+        // Setup admin events
+        setupAdminEvents();
       }
 
       // Calculator functions
@@ -1200,6 +1708,11 @@
 
       // Add item to cart
       function addToCart(item) {
+        if (systemLocked) {
+          showToast("Système verrouillé - Clôture effectuée", "error");
+          return;
+        }
+
         const existingItem = cart.find((cartItem) => cartItem.id === item.name);
 
         if (existingItem) {
@@ -1351,6 +1864,11 @@
 
       // Handle print function
       function handlePrint() {
+        if (systemLocked) {
+          showToast("Système verrouillé - Clôture effectuée", "error");
+          return;
+        }
+
         if (cart.length === 0) {
           showToast("Le panier est vide!", "error");
           return;
@@ -1669,9 +2187,16 @@
 
       // Open drawer (simulated)
       function openDrawer() {
+        if (systemLocked) {
+          showToast("Système verrouillé - Clôture effectuée", "error");
+          return;
+        }
         showToast("Tiroir ouvert!", "success");
         // In a real implementation, this would connect to a cash drawer hardware
       }
+
+      // Load saved menu data on init
+      loadMenuData();
 
       // Initialize the app when DOM is loaded
       document.addEventListener("DOMContentLoaded", init);
